@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Web to App Template</title>
+  <style>
+    :root {
+      --primary: #3B82F6;
+      --primary-dark: #1D4ED8;
+      --bg: #0F172A;
+      --card-bg: #1E293B;
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border: #334155;
+      --success: #10B981;
+      --accent: #6366F1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 16px;
+      padding-bottom: 32px;
+      user-select: none;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .header {
+      text-align: center;
+      padding: 20px 16px 12px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 999px;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #E2E8F0;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .status-pill {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .status-pill .label {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .status-pill .val {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--success);
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    button, label.btn {
+      background: var(--primary);
+      color: #FFFFFF;
+      border: none;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 44px;
+      flex: 1;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    button:active, label.btn:active {
+      background: var(--primary-dark);
+      transform: scale(0.98);
+    }
+
+    button.btn-secondary {
+      background: #334155;
+      color: #E2E8F0;
+    }
+
+    button.btn-secondary:active {
+      background: #475569;
+    }
+
+    .input-box {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      color: var(--text);
+      font-size: 14px;
+      margin-bottom: 10px;
+      outline: none;
+    }
+
+    .input-box:focus {
+      border-color: var(--primary);
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .result-box {
+      margin-top: 10px;
+      background: rgba(15, 23, 42, 0.8);
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+      word-break: break-all;
+      min-height: 24px;
+    }
+
+    .counter-display {
+      font-size: 32px;
+      font-weight: 700;
+      text-align: center;
+      color: var(--primary);
+      margin: 8px 0;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 12px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <div class="badge">Offline Ready Asset</div>
+      <h1>Web to Android Template</h1>
+      <p class="subtitle">HTML / CSS / JavaScript native converter</p>
+    </div>
+
+    <!-- System & Environment Status -->
+    <div class="card">
+      <div class="card-title">🚀 Converter Status</div>
+      <div class="status-grid">
+        <div class="status-pill">
+          <span class="label">Protocol</span>
+          <span class="val" id="protocol-status">AssetLoader</span>
+        </div>
+        <div class="status-pill">
+          <span class="label">Network</span>
+          <span class="val" id="network-status">Online</span>
+        </div>
+        <div class="status-pill">
+          <span class="label">DOM Storage</span>
+          <span class="val" id="storage-status">Available</span>
+        </div>
+        <div class="status-pill">
+          <span class="label">Local Assets</span>
+          <span class="val">app/src/main/assets</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- LocalStorage Persistence Test -->
+    <div class="card">
+      <div class="card-title">💾 DOM Storage Test</div>
+      <div class="counter-display" id="counter-value">0</div>
+      <div class="btn-row">
+        <button id="btn-increment">+ Increment</button>
+        <button class="btn-secondary" id="btn-reset">Reset</button>
+      </div>
+      <div class="result-box" id="storage-msg">State persists locally in localStorage.</div>
+    </div>
+
+    <!-- Camera & File Chooser Test -->
+    <div class="card">
+      <div class="card-title">📷 File Chooser & Camera</div>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+        Test native Android file picker & camera photo capture.
+      </p>
+      <input type="file" id="file-input" class="file-input" accept="image/*" />
+      <label for="file-input" class="btn">
+        📁 Choose File or Take Photo
+      </label>
+      <div class="result-box" id="file-result">No file selected yet.</div>
+    </div>
+
+    <!-- Geolocation & Dialogs -->
+    <div class="card">
+      <div class="card-title">📍 Geolocation & JS Dialogs</div>
+      <div class="btn-row">
+        <button id="btn-geo">Get Location</button>
+        <button class="btn-secondary" id="btn-alert">Alert</button>
+        <button class="btn-secondary" id="btn-confirm">Confirm</button>
+      </div>
+      <div class="result-box" id="geo-result">Coordinates will appear here.</div>
+    </div>
+
+    <div class="footer">
+      Ready for production. Place your web project in <code>assets/</code>
+    </div>
+  </div>
+
+  <script>
+    // System status check
+    document.getElementById('protocol-status').innerText = window.location.protocol === 'https:' ? 'HTTPS (Secure)' : window.location.protocol;
+    
+    function updateNetworkStatus() {
+      const netElem = document.getElementById('network-status');
+      if (navigator.onLine) {
+        netElem.innerText = 'Online';
+        netElem.style.color = 'var(--success)';
+      } else {
+        netElem.innerText = 'Offline (Working)';
+        netElem.style.color = '#F59E0B';
+      }
+    }
+    window.addEventListener('online', updateNetworkStatus);
+    window.addEventListener('offline', updateNetworkStatus);
+    updateNetworkStatus();
+
+    // DOM Storage Counter Test
+    let count = parseInt(localStorage.getItem('sample_counter') || '0', 10);
+    const counterDisplay = document.getElementById('counter-value');
+    counterDisplay.innerText = count;
+
+    document.getElementById('btn-increment').addEventListener('click', () => {
+      count++;
+      localStorage.setItem('sample_counter', count.toString());
+      counterDisplay.innerText = count;
+      document.getElementById('storage-msg').innerText = 'Saved: count is ' + count;
+    });
+
+    document.getElementById('btn-reset').addEventListener('click', () => {
+      count = 0;
+      localStorage.setItem('sample_counter', '0');
+      counterDisplay.innerText = 0;
+      document.getElementById('storage-msg').innerText = 'Counter reset in localStorage.';
+    });
+
+    // File Chooser test
+    const fileInput = document.getElementById('file-input');
+    const fileResult = document.getElementById('file-result');
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files && e.target.files.length > 0) {
+        const file = e.target.files[0];
+        fileResult.innerText = `Selected: ${file.name} (${(file.size / 1024).toFixed(1)} KB, type: ${file.type})`;
+      } else {
+        fileResult.innerText = 'File selection cancelled.';
+      }
+    });
+
+    // Geolocation test
+    document.getElementById('btn-geo').addEventListener('click', () => {
+      const geoResult = document.getElementById('geo-result');
+      if (!navigator.geolocation) {
+        geoResult.innerText = 'Geolocation not supported by browser.';
+        return;
+      }
+      geoResult.innerText = 'Requesting position permission...';
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          geoResult.innerText = `Latitude: ${pos.coords.latitude.toFixed(5)}, Longitude: ${pos.coords.longitude.toFixed(5)}`;
+        },
+        (err) => {
+          geoResult.innerText = `Location error (${err.code}): ${err.message}`;
+        },
+        { timeout: 10000, enableHighAccuracy: true }
+      );
+    });
+
+    // JavaScript Dialogs test
+    document.getElementById('btn-alert').addEventListener('click', () => {
+      alert('This is a native Android dialog triggered from JavaScript alert()!');
+    });
+
+    document.getElementById('btn-confirm').addEventListener('click', () => {
+      const confirmed = confirm('Do you like this HTML to Android converter?');
+      document.getElementById('geo-result').innerText = confirmed ? 'User clicked OK!' : 'User clicked Cancel.';
+    });
+  </script>
+</body>
+</html>

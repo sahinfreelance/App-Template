@@ -1,0 +1,6 @@
+{
+  "name": "Web to App",
+  "description": "Reusable HTML, CSS, and JavaScript to Android application converter template with offline asset loading, AdMob, and modern WebView features.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

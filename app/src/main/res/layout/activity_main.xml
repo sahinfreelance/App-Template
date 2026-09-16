@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/webview_background">
+
+    <!-- Thin Chrome-style loading progress bar at the very top -->
+    <ProgressBar
+        android:id="@+id/loading_progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="0"
+        android:progressTint="@color/progress_bar_color"
+        android:visibility="gone"
+        tools:progress="65"
+        tools:visibility="visible" />
+
+    <!-- Offline notification strip (hidden by default) -->
+    <LinearLayout
+        android:id="@+id/offline_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EF4444"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:gravity="center_vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/offline_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/error_offline_title"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/offline_retry_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/error_retry"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            android:padding="4dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Main WebView wrapped in SwipeRefreshLayout -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <WebView
+            android:id="@+id/web_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <!-- AdMob Banner Container at bottom (hidden when AdMob banner is disabled) -->
+    <FrameLayout
+        android:id="@+id/admob_banner_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:background="@android:color/transparent"
+        android:visibility="gone" />
+
+</LinearLayout>

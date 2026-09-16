@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Web to App</string>
+    <string name="error_offline_title">No Internet Connection</string>
+    <string name="error_offline_message">Please check your network connection and try again.</string>
+    <string name="error_retry">Retry</string>
+    <string name="file_chooser_title">Select file</string>
+    <string name="permission_camera_rationale">Camera access is needed to capture photos for upload.</string>
+    <string name="permission_location_rationale">Location access is needed for geolocation features in the web app.</string>
+    <string name="permission_storage_rationale">Storage access is needed to select files from your device.</string>
+</resources>
